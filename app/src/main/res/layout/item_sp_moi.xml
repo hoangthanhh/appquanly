@@ -22,14 +22,29 @@
                 android:layout_width="match_parent"
                 android:layout_height="150dp">
             </ImageView>
+<!--            <TextView-->
+<!--                android:id="@+id/itemsp_ten"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Laptop"-->
+<!--                android:textSize="20sp"-->
+<!--                android:textStyle="bold"-->
+<!--                android:gravity="center"></TextView>-->
+
             <TextView
                 android:id="@+id/itemsp_ten"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="2"
+                android:minLines="1"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
                 android:text="Laptop"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:gravity="center"></TextView>
+                android:textSize="16sp"
+                android:textStyle="bold" />
             <TextView
                 android:id="@+id/itemsp_gia"
                 android:layout_width="match_parent"
@@ -44,7 +59,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="top|right"
-            android:src="@drawable/ic_launcher_background"></ImageView>
+            android:src="@drawable/icon_new"></ImageView>
     </FrameLayout>
 
 </androidx.cardview.widget.CardView>
