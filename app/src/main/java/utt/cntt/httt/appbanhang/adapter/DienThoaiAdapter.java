@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide;
 import java.text.DecimalFormat;
 import java.util.List;
 
+import utt.cntt.httt.appbanhang.ChiTietActivity;
 import utt.cntt.httt.appbanhang.Interface.ItemClickListener;
 import utt.cntt.httt.appbanhang.R;
 import utt.cntt.httt.appbanhang.model.SanPhamMoi;
