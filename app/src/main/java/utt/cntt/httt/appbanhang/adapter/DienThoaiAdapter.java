@@ -17,7 +17,7 @@ import com.bumptech.glide.Glide;
 import java.text.DecimalFormat;
 import java.util.List;
 
-import utt.cntt.httt.appbanhang.ChiTietActivity;
+import utt.cntt.httt.appbanhang.activity.ChiTietActivity;
 import utt.cntt.httt.appbanhang.Interface.ItemClickListener;
 import utt.cntt.httt.appbanhang.R;
 import utt.cntt.httt.appbanhang.model.SanPhamMoi;
@@ -52,7 +52,7 @@ public class DienThoaiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             SanPhamMoi sanPham = array.get(position);
             myViewHolder.tensp.setText(sanPham.getTensp().trim());
             DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
-            myViewHolder.giasp.setText("Gia: " + decimalFormat.format(Double.parseDouble(sanPham.getGiasp())) + "Đ");
+            myViewHolder.giasp.setText("Giá: " + decimalFormat.format(Double.parseDouble(sanPham.getGiasp())) + "Đ");
             myViewHolder.mota.setText(sanPham.getMota());
             Glide.with(context).load(sanPham.getHinhanh()).into(myViewHolder.hinhanh);
             myViewHolder.setItemClickListener(new ItemClickListener() {
@@ -60,6 +60,7 @@ public class DienThoaiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 public void onClick(View view, int pos, boolean isLongClick) {
                     if (!isLongClick) {
                         Intent intent = new Intent(context, ChiTietActivity.class);
+                        intent.putExtra("chitiet", sanPham);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         context.startActivity(intent);
                     }

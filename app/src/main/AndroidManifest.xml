@@ -16,7 +16,10 @@
         android:theme="@style/Theme.AppBanHang"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".ChiTietActivity"
+            android:name=".activity.GioHangActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ChiTietActivity"
             android:exported="false" />
         <activity
             android:name=".activity.LaptopActivity"

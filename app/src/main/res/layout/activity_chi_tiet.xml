@@ -5,14 +5,37 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ChiTietActivity">
+    tools:context=".activity.ChiTietActivity">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:background="#3AD541"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="Chi tiet san pham"></androidx.appcompat.widget.Toolbar>
+        app:title="Chi tiết sản phẩm">
+
+        <FrameLayout
+            android:id="@+id/framegiohang"
+            android:layout_gravity="right"
+            android:layout_marginRight="10dp"
+            android:layout_width="55dp"
+            android:layout_height="?attr/actionBarSize">
+            <com.nex3z.notificationbadge.NotificationBadge
+                android:id="@+id/menu_sl"
+                android:layout_gravity="top|right"
+                android:layout_width="28dp"
+                android:layout_height="28dp">
+            </com.nex3z.notificationbadge.NotificationBadge>
+            <ImageView
+                android:layout_marginTop="15dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/ic_cart_24">
+
+            </ImageView>
+        </FrameLayout>
+
+    </androidx.appcompat.widget.Toolbar>
     <LinearLayout
         android:id="@+id/layout1"
         android:layout_width="match_parent"
@@ -35,7 +58,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
-                android:text="Ten san pham"
+                android:text="Tên sản phẩm"
                 android:textStyle="bold"
                 android:gravity="center"></TextView>
             <TextView
@@ -46,10 +69,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
-                android:text="Gia: 25000 d"
+                android:text="@string/gi_25000"
                 android:textStyle="bold"></TextView>
             <Spinner
                 android:id="@+id/spinner"
+                android:gravity="center"
+                android:background="@drawable/spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -60,10 +85,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:textSize="12sp"
                 android:textColor="@android:color/white"
-                android:text="Them vao gio hang"
-                android:layout_marginEnd="15dp"
-                android:layout_marginStart="15dp"></Button>
+                android:backgroundTint="#478188"
+                android:text="@string/th_m_v_o_gi_h_ng"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"></Button>
         </LinearLayout>
     </LinearLayout>
 
@@ -81,7 +108,7 @@
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:text="Mo ta chi tiet san pham"></TextView>
+            android:text="Mô tả chi tiết sản phẩm"></TextView>
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
