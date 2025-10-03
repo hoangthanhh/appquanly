@@ -43,11 +43,24 @@
         android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
         android:layout_marginTop="50dp">
-        <ImageView
-            android:id="@+id/imgchitiet"
-            android:layout_width="150dp"
-            android:layout_height="200dp"
-            android:src="@drawable/ic_launcher_background"></ImageView>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/imgchitiet"
+                android:layout_width="150dp"
+                android:layout_height="200dp"
+                android:src="@drawable/icon_new">
+            </ImageView>
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="top|right"
+                android:src="@drawable/icon_new"></ImageView>
+        </FrameLayout>
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"

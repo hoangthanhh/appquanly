@@ -13,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.model.GlideUrl;
+import com.bumptech.glide.load.model.LazyHeaders;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -50,11 +52,11 @@ public class DienThoaiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         if (holder instanceof MyViewHolder) {
             MyViewHolder myViewHolder = (MyViewHolder) holder;
             SanPhamMoi sanPham = array.get(position);
-            myViewHolder.tensp.setText(sanPham.getTensp().trim());
+            myViewHolder.tensp.setText(sanPham.getTensp());
             DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
             myViewHolder.giasp.setText("Giá: " + decimalFormat.format(Double.parseDouble(sanPham.getGiasp())) + "Đ");
             myViewHolder.mota.setText(sanPham.getMota());
-            Glide.with(context).load(sanPham.getHinhanh()).into(myViewHolder.hinhanh);
+            Glide.with(context).load(sanPham.getHinhanh().trim()).into(myViewHolder.hinhanh);
             myViewHolder.setItemClickListener(new ItemClickListener() {
                 @Override
                 public void onClick(View view, int pos, boolean isLongClick) {

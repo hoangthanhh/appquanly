@@ -2,6 +2,7 @@ package utt.cntt.httt.appbanhang.activity;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -61,7 +62,7 @@ public class DienThoaiActivity extends AppCompatActivity {
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 if (isLoading == false) {
-                    if (linearLayoutManager.findLastCompletelyVisibleItemPosition() == sanPhamMoiList.size()-1) {
+                    if (linearLayoutManager.findLastCompletelyVisibleItemPosition() == sanPhamMoiList.size() - 1) {
                         isLoading = true;
                         loadMore();
                     }
@@ -91,6 +92,7 @@ public class DienThoaiActivity extends AppCompatActivity {
         }, 2000);
     }
 
+
     private void getData(int page) {
         compositeDisposable.add(apiBanHang.getSanPham(page, loai)
                 .subscribeOn(Schedulers.io())
@@ -98,6 +100,7 @@ public class DienThoaiActivity extends AppCompatActivity {
                 .subscribe(
                         sanPhamMoiModel -> {
                             if (sanPhamMoiModel.isSuccess()) {
+
                                 if (adapterDt == null) {
                                     sanPhamMoiList = sanPhamMoiModel.getResult();
                                     adapterDt = new DienThoaiAdapter(getApplicationContext(),sanPhamMoiList);
@@ -118,6 +121,9 @@ public class DienThoaiActivity extends AppCompatActivity {
                         }
                 ));
     }
+
+
+
 
     private void ActionToolBar() {
         setSupportActionBar(toolbar);

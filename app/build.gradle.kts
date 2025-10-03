@@ -54,4 +54,6 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.github.akarnokd:rxjava3-retrofit-adapter:3.0.0")
     implementation("com.nex3z:notification-badge:1.0.4")
+    implementation("org.greenrobot:eventbus:3.2.0")
+    implementation("io.github.pilgr:paperdb:2.7.1")
 }
