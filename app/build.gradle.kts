@@ -3,10 +3,11 @@ import org.gradle.kotlin.dsl.implementation
 
 plugins {
     alias(libs.plugins.android.application)
+    id("com.google.gms.google-services") // ✅ thêm plugin Firebase
 }
 
 android {
-    namespace = "utt.cntt.httt.appbanhang"
+    namespace = "utt.cntt.httt.manager"
     compileSdk = 36
 
     defaultConfig {
@@ -32,14 +33,19 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+    buildFeatures {
+        viewBinding = true
+        dataBinding = true
+    }
 }
 
 dependencies {
-
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
+    implementation(libs.firebase.auth)
+    implementation(libs.firebase.messaging)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -56,4 +62,7 @@ dependencies {
     implementation("com.nex3z:notification-badge:1.0.4")
     implementation("org.greenrobot:eventbus:3.2.0")
     implementation("io.github.pilgr:paperdb:2.7.1")
+    implementation("com.google.code.gson:gson:2.8.9")
+    implementation ("com.github.fornewid:neumorphism:0.3.2")
+    implementation ("com.github.dhaval2404:imagepicker:2.1")
 }

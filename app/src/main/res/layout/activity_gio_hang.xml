@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.GioHangActivity">
+    tools:context="utt.cntt.httt.manager.activity.GioHangActivity">
 
     <TextView
         app:layout_constraintTop_toTopOf="parent"
@@ -26,6 +26,7 @@
         app:title="Giỏ hàng"
         app:layout_constraintTop_toTopOf="parent"
         android:background="#36DD07"></androidx.appcompat.widget.Toolbar>
+
     <androidx.recyclerview.widget.RecyclerView
         android:layout_margin="5dp"
         android:id="@+id/recycleviewgiohang"

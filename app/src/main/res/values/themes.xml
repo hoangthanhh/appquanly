@@ -6,4 +6,9 @@
     </style>
 
     <style name="Theme.AppBanHang" parent="Base.Theme.AppBanHang" />
+
+    <style name="neumorphirmcard">
+        <item name="neumorph_cornerFamily">rounded</item>
+        <item name="neumorph_cornerSize">12dp</item>
+    </style>
 </resources>
