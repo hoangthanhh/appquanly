@@ -19,6 +19,7 @@ import com.nex3z.notificationbadge.NotificationBadge;
 
 import java.text.DecimalFormat;
 
+import io.paperdb.Paper;
 import utt.cntt.httt.manager.R;
 import utt.cntt.httt.manager.model.GioHang;
 import utt.cntt.httt.manager.model.SanPhamMoi;
@@ -48,6 +49,7 @@ public class ChiTietActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 themGioHang();
+                Paper.book().write("giohang", Utils.manggiohang);
             }
         });
     }

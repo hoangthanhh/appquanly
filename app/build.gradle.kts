@@ -65,4 +65,5 @@ dependencies {
     implementation("com.google.code.gson:gson:2.8.9")
     implementation ("com.github.fornewid:neumorphism:0.3.2")
     implementation ("com.github.dhaval2404:imagepicker:2.1")
+    implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
 }

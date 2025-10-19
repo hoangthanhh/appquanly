@@ -38,8 +38,11 @@ public class GioHangActivity extends AppCompatActivity {
         setContentView(R.layout.activity_gio_hang);
         initView();
         initControl();
-        tinhTongTien();
 
+        if (Utils.mangmuahang != null) {
+            Utils.mangmuahang.clear();
+        }
+        tinhTongTien();
     }
 
 //    private void tinhTongTien() {
@@ -86,21 +89,9 @@ public class GioHangActivity extends AppCompatActivity {
             recyclerView.setAdapter(adapter);
         }
 
-//        btnmuahang.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getApplicationContext(), ThanhToanActivity.class);
-//                intent.putExtra("tongtien", tongtiensp);
-//                Utils.manggiohang.clear();
-//
-//                startActivity(intent);
-//            }
-//        });
-
         btnmuahang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Kiểm tra giỏ hàng trống
                 if (Utils.mangmuahang == null || Utils.mangmuahang.size() == 0 || tongtiensp == 0) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(GioHangActivity.this);
                     builder.setTitle("Thông báo");
@@ -114,14 +105,39 @@ public class GioHangActivity extends AppCompatActivity {
                     builder.show();
                     return;
                 }
-
                 Intent intent = new Intent(getApplicationContext(), ThanhToanActivity.class);
                 intent.putExtra("tongtien", tongtiensp);
-                Utils.manggiohang.clear();
+//                Utils.manggiohang.clear();
 
                 startActivity(intent);
             }
         });
+
+//        btnmuahang.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // Kiểm tra giỏ hàng trống
+//                if (Utils.mangmuahang == null || Utils.mangmuahang.size() == 0 || tongtiensp == 0) {
+//                    AlertDialog.Builder builder = new AlertDialog.Builder(GioHangActivity.this);
+//                    builder.setTitle("Thông báo");
+//                    builder.setMessage("Giỏ hàng của bạn đang trống. Vui lòng thêm sản phẩm trước khi mua hàng.");
+//                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            dialog.dismiss();
+//                        }
+//                    });
+//                    builder.show();
+//                    return;
+//                }
+//
+//                Intent intent = new Intent(getApplicationContext(), ThanhToanActivity.class);
+//                intent.putExtra("tongtien", tongtiensp);
+//                Utils.manggiohang.clear();
+//
+//                startActivity(intent);
+//            }
+//        });
 
 
     }

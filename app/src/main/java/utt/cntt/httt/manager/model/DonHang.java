@@ -9,6 +9,24 @@ public class DonHang {
     String sodienthoai;
     String tongtien;
     List<Item> item;
+    int trangthai;
+    String username;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public int getTrangthai() {
+        return trangthai;
+    }
+
+    public void setTrangthai(int trangthai) {
+        this.trangthai = trangthai;
+    }
 
     public int getId() {
         return id;

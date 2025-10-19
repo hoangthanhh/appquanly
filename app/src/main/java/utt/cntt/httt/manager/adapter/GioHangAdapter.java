@@ -21,6 +21,7 @@ import org.greenrobot.eventbus.EventBus;
 import java.text.DecimalFormat;
 import java.util.List;
 
+import io.paperdb.Paper;
 import utt.cntt.httt.manager.Interface.IImageClickListenner;
 import utt.cntt.httt.manager.R;
 import utt.cntt.httt.manager.model.EventBus.TinhTongEvent;
@@ -63,9 +64,14 @@ public class GioHangAdapter extends RecyclerView.Adapter<GioHangAdapter.MyViewHo
             @Override
             public void onCheckedChanged(@NonNull CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    Utils.mangmuahang.add(gioHang);
+                    Utils.manggiohang.get(holder.getAdapterPosition()).setChecked(true);
+                    if (!Utils.mangmuahang.contains(gioHang)) {
+                        Utils.mangmuahang.add(gioHang);
+                    }
+
                     EventBus.getDefault().postSticky(new TinhTongEvent());
                 } else {
+                    Utils.manggiohang.get(holder.getAdapterPosition()).setChecked(false);
                     for (int i = 0; i < Utils.mangmuahang.size(); i++) {
                         if (Utils.mangmuahang.get(i).getIdsp() == gioHang.getIdsp()) {
                             Utils.mangmuahang.remove(i);
@@ -75,6 +81,8 @@ public class GioHangAdapter extends RecyclerView.Adapter<GioHangAdapter.MyViewHo
                 }
             }
         });
+
+        holder.checkBox.setChecked(gioHang.isChecked());
 
         holder.setListener(new IImageClickListenner() {
             @Override
@@ -95,15 +103,9 @@ public class GioHangAdapter extends RecyclerView.Adapter<GioHangAdapter.MyViewHo
                         builder.setPositiveButton("Đồng ý", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                GioHang gioHang = gioHangList.get(pos);
+                                Utils.mangmuahang.remove(gioHang);
                                 Utils.manggiohang.remove(pos);
-                                for (int i = 0; i < Utils.mangmuahang.size(); i++) {
-                                    if (Utils.mangmuahang.get(i).getIdsp() == gioHang.getIdsp()) {
-                                        Utils.mangmuahang.remove(i);
-                                        break;
-                                    }
-                                }
-
+                                Paper.book().write("giohang", Utils.manggiohang);
                                 notifyDataSetChanged();
                                 EventBus.getDefault().postSticky(new TinhTongEvent());
 

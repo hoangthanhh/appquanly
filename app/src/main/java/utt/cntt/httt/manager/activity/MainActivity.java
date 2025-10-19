@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
             Utils.user_current = user;
         }
 
-        getToken();
+//        getToken();
         Anhxa();
         ActionBar();
 
@@ -91,65 +91,101 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void getToken() {
-        FirebaseMessaging.getInstance().getToken()
-                .addOnSuccessListener(new OnSuccessListener<String>() {
-                    @Override
-                    public void onSuccess(String s) {
-                        if (!TextUtils.isEmpty(s)) {
-                            compositeDisposable.add(apiBanHang.updateToken(Utils.user_current.getId(), s)
-                                    .subscribeOn(Schedulers.io())
-                                    .observeOn(AndroidSchedulers.mainThread())
-                                    .subscribe(
-                                            messageModel -> {
-
-                                            },
-                                            throwable -> {
-                                                Log.d("log", throwable.getMessage());
-                                            }
-                                    ));
-                        }
-                    }
-                });
-    }
+//    private void getToken() {
+//        FirebaseMessaging.getInstance().getToken()
+//                .addOnSuccessListener(new OnSuccessListener<String>() {
+//                    @Override
+//                    public void onSuccess(String s) {
+//                        if (!TextUtils.isEmpty(s)) {
+//                            compositeDisposable.add(apiBanHang.updateToken(Utils.user_current.getId(), s)
+//                                    .subscribeOn(Schedulers.io())
+//                                    .observeOn(AndroidSchedulers.mainThread())
+//                                    .subscribe(
+//                                            messageModel -> {
+//
+//                                            },
+//                                            throwable -> {
+//                                                Log.d("log", throwable.getMessage());
+//                                            }
+//                                    ));
+//                        }
+//                    }
+//                });
+//    }
 
     private void getEventClick() {
         listViewManHinhChinh.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                switch (position) {
-                    case 0:
+                if (Utils.user_current.getRole() == 0) {
+                    switch (position) {
+                        case 0:
 //                        Intent trangchu = new Intent(getApplicationContext(), MainActivity.class);
 //                        startActivity(trangchu);
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        break;
-                    case 1:
-                        Intent dienthoai = new Intent(getApplicationContext(), DienThoaiActivity.class);
-                        dienthoai.putExtra("loai", 1);
-                        startActivity(dienthoai);
-                        break;
-                    case 2:
-                        Intent laptop = new Intent(getApplicationContext(), DienThoaiActivity.class);
-                        laptop.putExtra("loai", 2);
-                        startActivity(laptop);
-                        break;
-                    case 5:
-                        Intent donhang = new Intent(getApplicationContext(), XemDonActivity.class);
-                        startActivity(donhang);
-                        break;
-                    case 6:
-                        Intent quanli = new Intent(getApplicationContext(), QuanLiActivity.class);
-                        startActivity(quanli);
-                        finish();
-                        break;
-                    case 7:
-                        // xoa key user
-                        Paper.book().delete("user");
-                        FirebaseAuth.getInstance().signOut();
-                        Intent dangnhap = new Intent(getApplicationContext(), DangNhapActivity.class);
-                        startActivity(dangnhap);
-                        finish();
-                        break;
+                            drawerLayout.closeDrawer(GravityCompat.START);
+                            break;
+                        case 1:
+                            Intent dienthoai = new Intent(getApplicationContext(), DienThoaiActivity.class);
+                            dienthoai.putExtra("loai", 1);
+                            startActivity(dienthoai);
+                            break;
+                        case 2:
+                            Intent laptop = new Intent(getApplicationContext(), DienThoaiActivity.class);
+                            laptop.putExtra("loai", 2);
+                            startActivity(laptop);
+                            break;
+                        case 5:
+                            Intent donhang = new Intent(getApplicationContext(), XemDonActivity.class);
+                            startActivity(donhang);
+                            break;
+                        case 6:
+                            Intent quanli = new Intent(getApplicationContext(), QuanLiActivity.class);
+                            startActivity(quanli);
+                            finish();
+                            break;
+                        case 7:
+                            Intent thongke = new Intent(getApplicationContext(), ThongKeActivity.class);
+                            startActivity(thongke);
+                            break;
+                        case 8:
+                            // xoa key user
+                            Paper.book().delete("user");
+                            FirebaseAuth.getInstance().signOut();
+                            Intent dangnhap = new Intent(getApplicationContext(), DangNhapActivity.class);
+                            startActivity(dangnhap);
+                            finish();
+                            break;
+                    }
+                } else {
+                    switch (position) {
+                        case 0:
+//                        Intent trangchu = new Intent(getApplicationContext(), MainActivity.class);
+//                        startActivity(trangchu);
+                            drawerLayout.closeDrawer(GravityCompat.START);
+                            break;
+                        case 1:
+                            Intent dienthoai = new Intent(getApplicationContext(), DienThoaiActivity.class);
+                            dienthoai.putExtra("loai", 1);
+                            startActivity(dienthoai);
+                            break;
+                        case 2:
+                            Intent laptop = new Intent(getApplicationContext(), DienThoaiActivity.class);
+                            laptop.putExtra("loai", 2);
+                            startActivity(laptop);
+                            break;
+                        case 5:
+                            Intent donhang = new Intent(getApplicationContext(), XemDonActivity.class);
+                            startActivity(donhang);
+                            break;
+                        case 6:
+                            // xoa key user
+                            Paper.book().delete("user");
+                            FirebaseAuth.getInstance().signOut();
+                            Intent dangnhap = new Intent(getApplicationContext(), DangNhapActivity.class);
+                            startActivity(dangnhap);
+                            finish();
+                            break;
+                    }
                 }
             }
         });
@@ -181,7 +217,11 @@ public class MainActivity extends AppCompatActivity {
                         loaiSpModel -> {
                             if (loaiSpModel.isSuccess()) {
                                 mangloaisp = loaiSpModel.getResult();
-                                mangloaisp.add(new LoaiSp("Quản lí", "http://mauweb.monamedia.net/thegioididong/wp-content/uploads/2017/12/banner-big-ky-nguyen-800-300.jpg"));
+                                if (Utils.user_current.getRole() == 0) {
+                                    mangloaisp.add(new LoaiSp("Quản lí sản phẩm", "http://mauweb.monamedia.net/thegioididong/wp-content/uploads/2017/12/banner-big-ky-nguyen-800-300.jpg"));
+                                    mangloaisp.add(new LoaiSp("Thống kê", "http://mauweb.monamedia.net/thegioididong/wp-content/uploads/2017/12/banner-big-ky-nguyen-800-300.jpg"));
+                                }
+
                                 mangloaisp.add(new LoaiSp("Đăng xuất", "http://mauweb.monamedia.net/thegioididong/wp-content/uploads/2017/12/banner-big-ky-nguyen-800-300.jpg"));
                                 loaiSpAdapter = new LoaiSpAdapter(getApplicationContext(),mangloaisp);
                                 listViewManHinhChinh.setAdapter(loaiSpAdapter);
@@ -237,6 +277,10 @@ public class MainActivity extends AppCompatActivity {
         // khoi tao list
         mangloaisp = new ArrayList<>();
         mangSpMoi =  new ArrayList<>();
+        if (Paper.book().read("giohang") != null) {
+            Utils.manggiohang = Paper.book().read("giohang");
+        }
+
         if (Utils.manggiohang == null) {
             Utils.manggiohang = new ArrayList<>();
         } else {
@@ -261,6 +305,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
     }
 
     @Override

@@ -6,14 +6,14 @@ public class User {
     String pass;
     String username;
     String mobile;
-    String uid;
+    int role;
 
-    public String getUid() {
-        return uid;
+    public int getRole() {
+        return role;
     }
 
-    public void setUid(String uid) {
-        this.uid = uid;
+    public void setRole(int role) {
+        this.role = role;
     }
 
     public int getId() {

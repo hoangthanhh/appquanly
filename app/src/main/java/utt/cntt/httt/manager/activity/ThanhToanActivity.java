@@ -17,10 +17,12 @@ import com.google.gson.Gson;
 
 import java.text.DecimalFormat;
 
+import io.paperdb.Paper;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import utt.cntt.httt.manager.R;
+import utt.cntt.httt.manager.model.GioHang;
 import utt.cntt.httt.manager.retrofit.ApiBanHang;
 import utt.cntt.httt.manager.retrofit.RetrofitClient;
 import utt.cntt.httt.manager.utils.Utils;
@@ -89,7 +91,16 @@ public class ThanhToanActivity extends AppCompatActivity {
                             .subscribe(
                                     userModel -> {
                                         Toast.makeText(getApplicationContext(), "Thành công", Toast.LENGTH_SHORT).show();
+
+                                        // clear manggiohang bang cach chay qua mangmuahang va clear item trong manggiohang
+                                        for (int i = 0; i < Utils.mangmuahang.size(); i++) {
+                                            GioHang gioHang = Utils.mangmuahang.get(i);
+                                            if (Utils.manggiohang.contains(gioHang)) {
+                                                Utils.manggiohang.remove(gioHang);
+                                            }
+                                        }
                                         Utils.mangmuahang.clear();
+                                        Paper.book().write("giohang", Utils.manggiohang);
                                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                         startActivity(intent);
                                         finish();

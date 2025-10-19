@@ -14,6 +14,7 @@ import utt.cntt.httt.manager.model.DonHangModel;
 import utt.cntt.httt.manager.model.LoaiSpModel;
 import utt.cntt.httt.manager.model.MessageModel;
 import utt.cntt.httt.manager.model.SanPhamMoiModel;
+import utt.cntt.httt.manager.model.ThongKeModel;
 import utt.cntt.httt.manager.model.UserModel;
 
 public interface ApiBanHang {
@@ -23,6 +24,9 @@ public interface ApiBanHang {
 
     @GET("getspmoi.php")
     Observable<SanPhamMoiModel> getSpMoi();
+
+    @GET("thongke.php")
+    Observable<ThongKeModel> getThongKe();
 
     // POST DATA
     @POST("chitiet.php")
@@ -37,8 +41,8 @@ public interface ApiBanHang {
             @Field("email") String email,
             @Field("pass") String pass,
             @Field("username") String username,
-            @Field("mobile") String mobile,
-            @Field("uid") String uid);
+            @Field("mobile") String mobile
+    );
 
     @POST("dangnhap.php")
     @FormUrlEncoded
@@ -69,6 +73,12 @@ public interface ApiBanHang {
             @Field("search") String search
     );
 
+    @POST("deleteorder.php")
+    @FormUrlEncoded
+    Observable<MessageModel> deleteOrder(
+            @Field("iddonhang") int id
+    );
+
     @POST("xoa.php")
     @FormUrlEncoded
     Observable<SanPhamMoiModel> xoaSanPham(
@@ -96,11 +106,11 @@ public interface ApiBanHang {
             , @Field("id") int id
     );
 
-    @POST("updatetoken.php")
+    @POST("updateorder.php")
     @FormUrlEncoded
-    Observable<MessageModel> updateToken(
+    Observable<MessageModel> updateOrder(
             @Field("id") int id
-            , @Field("token") String token
+            , @Field("trangthai") int trangthai
     );
 
     @Multipart

@@ -1,5 +1,6 @@
 package utt.cntt.httt.manager.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,9 +11,11 @@ import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -101,9 +104,9 @@ public class QuanLiActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toobar);
         img_them = findViewById(R.id.img_them);
         recyclerView = findViewById(R.id.recycleview_ql);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+//        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
     }
 
     @Override
@@ -111,7 +114,23 @@ public class QuanLiActivity extends AppCompatActivity {
         if (item.getTitle().equals("Sửa")) {
             suaSanPham();
         } else if (item.getTitle().equals("Xóa")) {
-            xoaSanPham();
+            new AlertDialog.Builder(this)
+                    .setTitle("Xác nhận xóa")
+                    .setMessage("Bạn có chắc muốn xóa sản phẩm này không?")
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            xoaSanPham(); // gọi hàm xóa khi người dùng chọn Có
+                        }
+                    })
+                    .setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss(); // đóng dialog
+                        }
+                    })
+                    .show();
         }
         return super.onContextItemSelected(item);
     }
