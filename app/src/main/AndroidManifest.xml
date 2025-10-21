@@ -16,6 +16,12 @@
         android:theme="@style/Theme.AppBanHang"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".activity.ThemTkActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.QuanLiTkActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.ThongKeActivity"
             android:exported="false" />
         <activity
@@ -26,6 +32,9 @@
             android:exported="false" />
         <activity
             android:name=".activity.SearchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.SearchTkActivity"
             android:exported="false" />
         <activity
             android:name=".activity.XemDonActivity"

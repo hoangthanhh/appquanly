@@ -46,7 +46,7 @@ public class DonHangAdapter extends RecyclerView.Adapter<DonHangAdapter.MyViewHo
         DonHang donHang = listdonhang.get(position);
         holder.txtdonhang.setText("Đơn hàng: " + donHang.getId());
         holder.diachi.setText("Địa chỉ: " + donHang.getDiachi());
-        if (Utils.user_current.getRole() == 0) {
+        if (Utils.user_current.getRole() == 2) {
             holder.username.setText("Người đặt: " + donHang.getUsername());
         } else {
             holder.username.setText("");

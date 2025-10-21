@@ -127,6 +127,17 @@ public class DienThoaiActivity extends AppCompatActivity {
     private void ActionToolBar() {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        // Lấy giá trị "loai" được truyền từ Intent
+        int loai = getIntent().getIntExtra("loai", -1);
+
+        // Đặt tiêu đề tùy theo loại sản phẩm
+        if (loai == 1) {
+            getSupportActionBar().setTitle("Điện thoại");
+        } else if (loai == 2) {
+            getSupportActionBar().setTitle("Laptop");
+        }
+
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -134,6 +145,7 @@ public class DienThoaiActivity extends AppCompatActivity {
             }
         });
     }
+
 
     private void Anhxa() {
         toolbar = findViewById(R.id.toolbar);

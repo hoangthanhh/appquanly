@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -25,10 +23,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.messaging.FirebaseMessaging;
 import com.nex3z.notificationbadge.NotificationBadge;
 
 import java.util.ArrayList;
@@ -91,37 +87,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-//    private void getToken() {
-//        FirebaseMessaging.getInstance().getToken()
-//                .addOnSuccessListener(new OnSuccessListener<String>() {
-//                    @Override
-//                    public void onSuccess(String s) {
-//                        if (!TextUtils.isEmpty(s)) {
-//                            compositeDisposable.add(apiBanHang.updateToken(Utils.user_current.getId(), s)
-//                                    .subscribeOn(Schedulers.io())
-//                                    .observeOn(AndroidSchedulers.mainThread())
-//                                    .subscribe(
-//                                            messageModel -> {
-//
-//                                            },
-//                                            throwable -> {
-//                                                Log.d("log", throwable.getMessage());
-//                                            }
-//                                    ));
-//                        }
-//                    }
-//                });
-//    }
 
     private void getEventClick() {
         listViewManHinhChinh.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (Utils.user_current.getRole() == 0) {
+                if (Utils.user_current.getRole() == 2) {
                     switch (position) {
                         case 0:
-//                        Intent trangchu = new Intent(getApplicationContext(), MainActivity.class);
-//                        startActivity(trangchu);
                             drawerLayout.closeDrawer(GravityCompat.START);
                             break;
                         case 1:
@@ -144,10 +117,15 @@ public class MainActivity extends AppCompatActivity {
                             finish();
                             break;
                         case 7:
+                            Intent quanlitk = new Intent(getApplicationContext(), QuanLiTkActivity.class);
+                            startActivity(quanlitk);
+                            finish();
+                            break;
+                        case 8:
                             Intent thongke = new Intent(getApplicationContext(), ThongKeActivity.class);
                             startActivity(thongke);
                             break;
-                        case 8:
+                        case 9:
                             // xoa key user
                             Paper.book().delete("user");
                             FirebaseAuth.getInstance().signOut();
@@ -159,8 +137,6 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     switch (position) {
                         case 0:
-//                        Intent trangchu = new Intent(getApplicationContext(), MainActivity.class);
-//                        startActivity(trangchu);
                             drawerLayout.closeDrawer(GravityCompat.START);
                             break;
                         case 1:
@@ -217,8 +193,9 @@ public class MainActivity extends AppCompatActivity {
                         loaiSpModel -> {
                             if (loaiSpModel.isSuccess()) {
                                 mangloaisp = loaiSpModel.getResult();
-                                if (Utils.user_current.getRole() == 0) {
+                                if (Utils.user_current.getRole() == 2) {
                                     mangloaisp.add(new LoaiSp("Quản lí sản phẩm", "http://mauweb.monamedia.net/thegioididong/wp-content/uploads/2017/12/banner-big-ky-nguyen-800-300.jpg"));
+                                    mangloaisp.add(new LoaiSp("Quản lí tài khoản", "http://mauweb.monamedia.net/thegioididong/wp-content/uploads/2017/12/banner-big-ky-nguyen-800-300.jpg"));
                                     mangloaisp.add(new LoaiSp("Thống kê", "http://mauweb.monamedia.net/thegioididong/wp-content/uploads/2017/12/banner-big-ky-nguyen-800-300.jpg"));
                                 }
 

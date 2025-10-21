@@ -21,6 +21,7 @@ import utt.cntt.httt.manager.activity.ChiTietActivity;
 import utt.cntt.httt.manager.Interface.ItemClickListener;
 import utt.cntt.httt.manager.R;
 import utt.cntt.httt.manager.model.SanPhamMoi;
+import utt.cntt.httt.manager.utils.Utils;
 
 public class DienThoaiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     Context context;
@@ -54,7 +55,13 @@ public class DienThoaiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
             myViewHolder.giasp.setText("Giá: " + decimalFormat.format(Double.parseDouble(sanPham.getGiasp())) + "Đ");
             myViewHolder.mota.setText(sanPham.getMota());
-            Glide.with(context).load(sanPham.getHinhanh().trim()).into(myViewHolder.hinhanh);
+//            Glide.with(context).load(sanPham.getHinhanh().trim()).into(myViewHolder.hinhanh);
+            if (sanPham.getHinhanh().contains("http")) {
+                Glide.with(context).load(sanPham.getHinhanh().trim()).into(myViewHolder.hinhanh);
+            } else {
+                String hinh = Utils.BASE_URL + "images/" + sanPham.getHinhanh().trim();
+                Glide.with(context).load(hinh).into(myViewHolder.hinhanh);
+            }
             myViewHolder.setItemClickListener(new ItemClickListener() {
                 @Override
                 public void onClick(View view, int pos, boolean isLongClick) {

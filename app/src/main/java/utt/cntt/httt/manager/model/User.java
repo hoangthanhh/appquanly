@@ -1,6 +1,8 @@
 package utt.cntt.httt.manager.model;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     int id;
     String email;
     String pass;

@@ -146,7 +146,7 @@ public class XemDonActivity extends AppCompatActivity {
         View view = inflater.inflate(R.layout.dialog_donhang, null);
         Spinner spinner = view.findViewById(R.id.spinner_dialog);
         AppCompatButton btndongy = view.findViewById(R.id.dongy_dialog);
-        if (Utils.user_current.getRole() == 0) {
+        if (Utils.user_current.getRole() == 2) {
             List<String> list = new ArrayList<>();
             list.add("Đơn hàng đang được xử lý");
             list.add("Đơn hàng đã giao cho đơn vị vận chuyển");

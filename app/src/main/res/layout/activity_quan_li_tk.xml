@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/qltk"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
@@ -10,7 +10,7 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toobar"
-        app:title="Quản lý sản phẩm"
+        app:title="Quản lý tài khoản"
         android:background="#B2B4C1"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
@@ -24,19 +24,19 @@
             android:layout_marginRight="15dp"
             android:layout_marginLeft="8dp"
             android:src="@drawable/outline_search_24"></ImageView>
-        
+
         <ImageView
-            android:id="@+id/img_them"
+            android:id="@+id/img_themtk"
             android:src="@drawable/ic_add_24"
             android:layout_gravity="right"
             android:layout_marginRight="12dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"></ImageView>
-        
+
     </androidx.appcompat.widget.Toolbar>
-    
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycleview_ql"
+        android:id="@+id/recycleview_qltk"
         app:layout_constraintTop_toBottomOf="@id/toobar"
         android:layout_margin="5dp"
         app:layout_constraintBottom_toBottomOf="parent"

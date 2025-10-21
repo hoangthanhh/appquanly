@@ -9,12 +9,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,6 +21,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.io.Serializable;
 import java.util.List;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
@@ -30,33 +29,35 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import utt.cntt.httt.manager.R;
 import utt.cntt.httt.manager.adapter.SanPhamMoiAdapter;
+import utt.cntt.httt.manager.adapter.UserAdapter;
 import utt.cntt.httt.manager.model.EventBus.SuaXoaEvent;
 import utt.cntt.httt.manager.model.SanPhamMoi;
+import utt.cntt.httt.manager.model.User;
 import utt.cntt.httt.manager.retrofit.ApiBanHang;
 import utt.cntt.httt.manager.retrofit.RetrofitClient;
 import utt.cntt.httt.manager.utils.Utils;
 
-public class QuanLiActivity extends AppCompatActivity {
-    ImageView img_them;
+public class QuanLiTkActivity extends AppCompatActivity {
+
+    ImageView img_themtk, imgsearch;
     Toolbar toolbar;
     RecyclerView recyclerView;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     ApiBanHang apiBanHang;
-    List<SanPhamMoi> mangSpMoi;
-    SanPhamMoiAdapter spAdapter;
-    SanPhamMoi sanPhamSuaXoa;
-    ImageView imgsearch;
+    List<User> mangUser;
+    UserAdapter userAdapter;
+    User userSuaXoa;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_quan_li);
+        setContentView(R.layout.activity_quan_li_tk);
         apiBanHang = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiBanHang.class);
         initView();
         initControl();
         ActionToolBar();
-        getSpMoi();
+        getTk();
     }
 
     private void ActionToolBar() {
@@ -65,7 +66,7 @@ public class QuanLiActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(QuanLiActivity.this, MainActivity.class);
+                Intent intent = new Intent(QuanLiTkActivity.this, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 finish();
@@ -74,10 +75,10 @@ public class QuanLiActivity extends AppCompatActivity {
     }
 
     private void initControl() {
-        img_them.setOnClickListener(new View.OnClickListener() {
+        img_themtk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), ThemSPActivity.class);
+                Intent intent = new Intent(getApplicationContext(), ThemTkActivity.class);
                 startActivity(intent);
             }
         });
@@ -85,23 +86,22 @@ public class QuanLiActivity extends AppCompatActivity {
         imgsearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+                Intent intent = new Intent(getApplicationContext(), SearchTkActivity.class);
                 startActivity(intent);
             }
         });
-
     }
 
-    private void getSpMoi() {
-        compositeDisposable.add(apiBanHang.getSpMoi()
+    private void getTk() {
+        compositeDisposable.add(apiBanHang.getTk()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        sanPhamMoiModel -> {
-                            if (sanPhamMoiModel.isSuccess()) {
-                                mangSpMoi = sanPhamMoiModel.getResult();
-                                spAdapter = new SanPhamMoiAdapter(getApplicationContext(), mangSpMoi);
-                                recyclerView.setAdapter(spAdapter);
+                        userModel -> {
+                            if (userModel.isSuccess()) {
+                                mangUser = userModel.getResult();
+                                userAdapter = new UserAdapter(getApplicationContext(), mangUser);
+                                recyclerView.setAdapter(userAdapter);
                             }
                         },
                         throwable -> {
@@ -112,27 +112,27 @@ public class QuanLiActivity extends AppCompatActivity {
 
     private void initView() {
         toolbar = findViewById(R.id.toobar);
-        img_them = findViewById(R.id.img_them);
-        recyclerView = findViewById(R.id.recycleview_ql);
-//        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        img_themtk = findViewById(R.id.img_themtk);
+        recyclerView = findViewById(R.id.recycleview_qltk);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        recyclerView.setLayoutManager(layoutManager);
         imgsearch = findViewById(R.id.imgsearch);
     }
 
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         if (item.getTitle().equals("Sửa")) {
-            suaSanPham();
+            suaTaiKhoan();
         } else if (item.getTitle().equals("Xóa")) {
             new AlertDialog.Builder(this)
                     .setTitle("Xác nhận xóa")
-                    .setMessage("Bạn có chắc muốn xóa sản phẩm này không?")
+                    .setMessage("Bạn có chắc muốn xóa tài khoản này không?")
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .setPositiveButton("Có", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            xoaSanPham(); // gọi hàm xóa khi người dùng chọn Có
+                            xoaTaiKhoan(); // gọi hàm xóa khi người dùng chọn Có
                         }
                     })
                     .setNegativeButton("Không", new DialogInterface.OnClickListener() {
@@ -146,15 +146,15 @@ public class QuanLiActivity extends AppCompatActivity {
         return super.onContextItemSelected(item);
     }
 
-    private void xoaSanPham() {
-        compositeDisposable.add(apiBanHang.xoaSanPham(sanPhamSuaXoa.getId())
+    private void xoaTaiKhoan() {
+        compositeDisposable.add(apiBanHang.xoaTaiKhoan(userSuaXoa.getId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         messageModel -> {
                             if (messageModel.isSuccess()) {
                                 Toast.makeText(getApplicationContext(), messageModel.getMessage(), Toast.LENGTH_SHORT).show();
-                                getSpMoi();
+                                getTk();
                             } else {
                                 Toast.makeText(getApplicationContext(), messageModel.getMessage(), Toast.LENGTH_SHORT).show();
                             }
@@ -164,9 +164,9 @@ public class QuanLiActivity extends AppCompatActivity {
                 ));
     }
 
-    private void suaSanPham() {
-        Intent intent = new Intent(getApplicationContext(), ThemSPActivity.class);
-        intent.putExtra("sua", sanPhamSuaXoa);
+    private void suaTaiKhoan() {
+        Intent intent = new Intent(getApplicationContext(), ThemTkActivity.class);
+        intent.putExtra("sua", userSuaXoa);
         startActivity(intent);
     }
 
@@ -179,7 +179,7 @@ public class QuanLiActivity extends AppCompatActivity {
     @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
     public void evenSuaXoa(SuaXoaEvent event) {
         if (event != null) {
-            sanPhamSuaXoa = event.getSanPhamMoi();
+            userSuaXoa = event.getUser();
         }
     }
 

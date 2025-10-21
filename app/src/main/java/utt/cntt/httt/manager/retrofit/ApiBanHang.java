@@ -25,6 +25,9 @@ public interface ApiBanHang {
     @GET("getspmoi.php")
     Observable<SanPhamMoiModel> getSpMoi();
 
+    @GET("gettk.php")
+    Observable<UserModel> getTk();
+
     @GET("thongke.php")
     Observable<ThongKeModel> getThongKe();
 
@@ -72,6 +75,11 @@ public interface ApiBanHang {
     Observable<SanPhamMoiModel> search(
             @Field("search") String search
     );
+    @POST("timkiemtk.php")
+    @FormUrlEncoded
+    Observable<UserModel> searchtk(
+            @Field("search") String search
+    );
 
     @POST("deleteorder.php")
     @FormUrlEncoded
@@ -85,6 +93,12 @@ public interface ApiBanHang {
             @Field("id") int id
     );
 
+    @POST("xoatk.php")
+    @FormUrlEncoded
+    Observable<UserModel> xoaTaiKhoan(
+            @Field("id") int id
+    );
+
     @POST("insertsp.php")
     @FormUrlEncoded
     Observable<MessageModel> insertSp(
@@ -95,6 +109,16 @@ public interface ApiBanHang {
             , @Field("loai") int id
     );
 
+    @POST("inserttk.php")
+    @FormUrlEncoded
+    Observable<MessageModel> insertTk(
+            @Field("email") String email
+            , @Field("pass") String pass
+            , @Field("username") String username
+            , @Field("mobile") String mobile
+            , @Field("role") int role
+    );
+
     @POST("updatesp.php")
     @FormUrlEncoded
     Observable<MessageModel> updatesp(
@@ -103,6 +127,17 @@ public interface ApiBanHang {
             , @Field("hinhanh") String hinhanh
             , @Field("mota") String mota
             , @Field("loai") int idloai
+            , @Field("id") int id
+    );
+
+    @POST("updatetk.php")
+    @FormUrlEncoded
+    Observable<MessageModel> updatetk(
+            @Field("email") String email
+            , @Field("pass") String pass
+            , @Field("username") String username
+            , @Field("mobile") String mobile
+            , @Field("role") int role
             , @Field("id") int id
     );
 
